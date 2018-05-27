@@ -1,0 +1,13 @@
+{
+"server": true,
+"datacenter": "pr",
+"bootstrap_expect": 1,
+"client_addr": "0.0.0.0", 
+"data_dir": "/opt/consul.d",
+"log_level": "INFO",
+"node_name": "consul-server1",
+"addresses": { 
+        "http": "0.0.0.0" 
+        }
+} 
+

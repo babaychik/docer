@@ -1,0 +1,35 @@
+
+daemon off;
+
+events {
+    worker_connections 200;
+    multi_accept on;
+    }
+
+http {
+
+upstream my-app {
+    {{range service "httpd"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
+    {{else}}server 127.0.0.1:65535; # force a 502 {{end}}
+}
+
+server {
+
+    error_log /var/log/nginx/localhost.error_log info;
+    
+
+    location / {
+        proxy_pass http://my-app;
+    }
+
+    location /user1 {
+        rewrite ^/user1(/.*)$ $1 break;
+        proxy_pass http://172.17.0.2:80;
+    }
+
+    location /user2 {
+        rewrite ^/user2(/.*)$ $1 break;
+        proxy_pass http://172.17.0.3:80;
+        }
+    }
+}
