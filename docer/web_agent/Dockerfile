@@ -16,3 +16,4 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Объявляем порты
 EXPOSE 80
 CMD ["/usr/bin/supervisord"] 
+#END
